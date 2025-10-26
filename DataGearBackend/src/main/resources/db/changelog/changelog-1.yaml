@@ -1,0 +1,52 @@
+databaseChangeLog:
+  
+  - changeSet:
+      id: 1
+      author: DataGear
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: transactions
+      changes:
+        - createTable:
+            tableName: transactions
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: amount
+                  type: DECIMAL(19,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: note
+                  type: TEXT
+                  constraints:
+                    nullable: true
+  
+  - changeSet:
+      id: 2
+      author: DataGear
+      changes:
+        - createIndex:
+            tableName: transactions
+            indexName: idx_transactions_type
+            columns:
+              - column:
+                  name: type

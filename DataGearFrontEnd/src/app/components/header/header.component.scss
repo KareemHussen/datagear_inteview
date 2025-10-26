@@ -1,0 +1,24 @@
+.app-title {
+  display: flex;
+  align-items: center;
+  
+  .title-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+  }
+}
+
+.theme-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+:host ::ng-deep {
+  .p-toolbar {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--surface-border);
+    background: var(--surface-card);
+  }
+}

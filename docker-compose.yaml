@@ -1,0 +1,31 @@
+services:
+  backend:
+    build:
+      context: ./DataGearBackend
+      dockerfile: Dockerfile
+    container_name: datagear-backend
+    ports:
+      - "8080:8080"
+    networks:
+      - datagear-net
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+  frontend:
+    build:
+      context: ./DataGearFrontEnd
+      dockerfile: Dockerfile
+    container_name: datagear-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - datagear-net
+    environment:
+      - API_URL=http://localhost:8080/api/v1
+    restart: unless-stopped
+
+networks:
+  datagear-net:
+    driver: bridge

@@ -1,0 +1,34 @@
+.sidebar-container {
+  width: 100%;
+  background: var(--surface-card);
+  border-right: 1px solid var(--surface-border);
+}
+
+:host ::ng-deep {
+  .sidebar-menu {
+    .p-tabmenu-nav {
+      flex-direction: column;
+      width: 100%;
+      
+      .p-tabmenu-nav-link {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        border-radius: 0;
+        border-bottom: 1px solid var(--surface-border);
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        &:hover {
+          background: var(--surface-hover);
+        }
+        
+        &.p-highlight {
+          background: var(--primary-color);
+          color: var(--primary-color-text);
+        }
+      }
+    }
+  }
+}

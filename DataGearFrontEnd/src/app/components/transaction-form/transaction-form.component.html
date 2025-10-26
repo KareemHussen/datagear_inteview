@@ -1,0 +1,119 @@
+<div class="transaction-form-container">
+  <div class="form-header">
+    <h2>Create New Transaction</h2>
+    <p-button 
+      label="Back to Transactions" 
+      icon="pi pi-arrow-left" 
+      severity="secondary"
+      (onClick)="onCancel()">
+    </p-button>
+  </div>
+
+  <div class="form-content">
+    <p-card>
+      <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="transaction-form">
+        
+        <!-- Error Message -->
+        <div *ngIf="error()" class="error-message">
+          <p-message 
+            severity="error" 
+            [text]="error()!" 
+            [closable]="false">
+          </p-message>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="amount" class="required">Amount</label>
+            <p-inputNumber 
+              id="amount"
+              formControlName="amount"
+              mode="currency"
+              currency="USD"
+              locale="en-US"
+              [min]="0.01"
+              [step]="0.01"
+              [useGrouping]="true"
+              placeholder="0.00"
+              [class.invalid]="isFieldInvalid('amount')">
+            </p-inputNumber>
+            <small *ngIf="isFieldInvalid('amount')" class="error-text">
+              {{ getFieldError('amount') }}
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="type" class="required">Type</label>
+            <p-select 
+              id="type"
+              formControlName="type"
+              [options]="typeOptions"
+              placeholder="Select transaction type"
+              [class.invalid]="isFieldInvalid('type')">
+            </p-select>
+            <small *ngIf="isFieldInvalid('type')" class="error-text">
+              {{ getFieldError('type') }}
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="note">Note</label>
+          <input 
+            type="text" 
+            id="note"
+            pInputText 
+            formControlName="note"
+            placeholder="Enter transaction note"
+            [class.invalid]="isFieldInvalid('note')">
+          <small *ngIf="isFieldInvalid('note')" class="error-text">
+            {{ getFieldError('note') }}
+          </small>
+        </div>
+
+        <div class="form-actions">
+          <p-button 
+            label="Cancel" 
+            icon="pi pi-times" 
+            severity="secondary"
+            (onClick)="onCancel()"
+            [disabled]="loading()">
+          </p-button>
+          
+          <p-button 
+            type="submit"
+            label="Create Transaction" 
+            icon="pi pi-check" 
+            severity="primary"
+            [loading]="loading()"
+            [disabled]="transactionForm.invalid">
+          </p-button>
+        </div>
+      </form>
+    </p-card>
+  </div>
+
+  <!-- Success Dialog -->
+  <p-dialog 
+    header="Success" 
+    [(visible)]="showSuccessDialog"
+    [modal]="true" 
+    [closable]="false"
+    [style]="{ width: '400px' }">
+    
+    <div class="success-content">
+      <i class="pi pi-check-circle" style="font-size: 3rem; color: var(--green-500); margin-bottom: 1rem;"></i>
+      <h3>Transaction Created Successfully!</h3>
+      <p>Your transaction has been created and saved.</p>
+    </div>
+    
+    <ng-template pTemplate="footer">
+      <p-button 
+        label="OK" 
+        icon="pi pi-check" 
+        severity="primary"
+        (onClick)="onSuccessDialogClose()">
+      </p-button>
+    </ng-template>
+  </p-dialog>
+</div>
