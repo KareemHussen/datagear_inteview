@@ -7,6 +7,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +36,19 @@ public class GlobalExceptionHandler {
         APIResponse<Void> errorResponse = APIResponse.error("Invalid request data", errors);
         
         return ResponseEntity.badRequest().body(errorResponse);
+    }
+
+    /**
+     * Handle 404 Not Found - when endpoint doesn't exist
+     * @param ex NoHandlerFoundException
+     * @return formatted error response
+     */
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<APIResponse<Void>> handleNoHandlerFoundException(NoHandlerFoundException ex) {
+        String message = String.format("The requested endpoint '%s %s' was not found", ex.getHttpMethod(), ex.getRequestURL());
+        APIResponse<Void> errorResponse = APIResponse.error(message);
+        
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
     /**

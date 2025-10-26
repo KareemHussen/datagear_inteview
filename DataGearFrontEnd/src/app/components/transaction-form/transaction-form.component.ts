@@ -53,7 +53,7 @@ export class TransactionFormComponent {
 
   private createForm(): FormGroup {
     return this.fb.group({
-      amount: [null, [Validators.required, Validators.min(0.01)]],
+      amount: [null, [Validators.required, Validators.min(0.01), Validators.max(90000000)]],
       type: ['', [Validators.required]],
       note: ['', [Validators.maxLength(255)]],
       accountId: [null]
@@ -137,6 +137,9 @@ export class TransactionFormComponent {
       }
       if (field.errors['min']) {
         return `${this.getFieldLabel(fieldName)} must be greater than ${field.errors['min'].min}`;
+      }
+      if (field.errors['max']) {
+        return `${this.getFieldLabel(fieldName)} cannot exceed ${field.errors['max'].max.toLocaleString()}`;
       }
     }
     return '';

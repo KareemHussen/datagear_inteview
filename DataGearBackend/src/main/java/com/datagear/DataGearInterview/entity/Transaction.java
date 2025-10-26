@@ -2,6 +2,7 @@ package com.datagear.DataGearInterview.entity;
 
 import com.datagear.DataGearInterview.enums.TransactionType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,7 @@ public class Transaction {
 
     @NotNull(message = "Amount cannot be null")
     @DecimalMin(value = "0.01", message = "Amount must be positive")
+    @DecimalMax(value = "90000000", message = "Amount cannot exceed 90,000,000")
     @Column(name = "amount", nullable = false, precision = 19, scale = 2)
     private BigDecimal amount;
 
