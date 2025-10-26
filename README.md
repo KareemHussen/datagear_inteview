@@ -311,10 +311,3 @@ Once running, access the application at:
 cd DataGearBackend
 ./mvnw test
 ```
-
-### Frontend Tests
-
-```bash
-cd DataGearFrontEnd
-npm test
-```
