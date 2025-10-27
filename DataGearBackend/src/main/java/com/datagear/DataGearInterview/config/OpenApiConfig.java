@@ -38,17 +38,4 @@ public class OpenApiConfig {
                     .description("Development server")
             ));
     }
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("*") // Swagger UI origin
-                        .allowedMethods("*")
-                        .allowedHeaders("*");
-            }
-        };
-    }
 }

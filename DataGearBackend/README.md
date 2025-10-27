@@ -70,6 +70,7 @@ DataGear Backend is a Spring Boot application that provides a robust, scalable s
 ```
 src/main/java/com/datagear/DataGearInterview/
 ├── config/
+│   ├── CorsConfig.java          # Cors configuration
 │   ├── CacheConfig.java          # Caching configuration
 │   ├── DatabaseSeeder.java        # Test data seeder
 │   └── OpenApiConfig.java         # Swagger configuration
@@ -107,10 +108,8 @@ src/main/java/com/datagear/DataGearInterview/
 cd DataGearBackend
 
 # Run the application
-./mvnw spring-boot:run
+mvn spring-boot:run
 
-# Or on Windows
-mvnw.cmd spring-boot:run
 ```
 
 ### Using Docker
@@ -145,10 +144,7 @@ docker-compose up backend
 
 ```bash
 # Run all tests
-./mvnw test
-
-# Run with coverage
-./mvnw test jacoco:report
+mvn test
 ```
 
 ## 📝 API Examples
@@ -169,7 +165,6 @@ Content-Type: application/json
   "amount": 1500.00,
   "type": "Credit",
   "note": "Salary payment",
-  "accountId": 1
 }
 ```
 
@@ -197,7 +192,7 @@ Key configuration files:
 
 ```bash
 # Build JAR
-./mvnw clean package
+mvn clean package
 
 # Build with Docker
 docker build -t datagear-backend .

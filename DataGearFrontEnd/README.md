@@ -9,6 +9,7 @@ DataGear Frontend is an Angular-based web application that provides a beautiful,
 ## 🚀 Features
 
 ### Pages & Components
+
 - **3 Main Pages**
   - Transaction List - View and filter all transactions
   - Create Transaction - Add new transactions
@@ -18,6 +19,7 @@ DataGear Frontend is an Angular-based web application that provides a beautiful,
 - **Statistics Component** - Live transaction totals
 
 ### User Interface
+
 - **Modern UI** with PrimeNG components
 - **Responsive Design** that works on all devices
 - **Beautiful Theming** with Lara Light Blue theme
@@ -26,12 +28,14 @@ DataGear Frontend is an Angular-based web application that provides a beautiful,
 - **Loading States** and skeleton screens
 
 ### Data Management
+
 - **HTTP Client** for API communication
 - **Angular Signals** for reactive state management
 - **Service Layer** for business logic separation
 - **Environment-based Configuration** for different deployments
 
 ### Filtering & Sorting
+
 - **Filter by Type** (Credit/Debit)
 - **Filter by Date Range** with date picker
 - **Filter by Amount Range** (min/max)
@@ -40,15 +44,11 @@ DataGear Frontend is an Angular-based web application that provides a beautiful,
 - **Debounced Search** for optimal performance
 
 ### Performance Features
+
 - **Request Caching** to minimize API calls
 - **Smart Reload** on navigation
 - **Optimistic UI Updates**
 - **Lazy Loading** for better initial load time
-
-### Testing
-- **Component Tests** for UI components
-- **Service Tests** for business logic
-- **Integration Tests** for end-to-end flows
 
 ## 🛠 Technology Stack
 
@@ -60,7 +60,6 @@ DataGear Frontend is an Angular-based web application that provides a beautiful,
 - **HTTP**: Angular HttpClient with RxJS
 - **Forms**: Reactive Forms
 - **Build Tool**: Angular CLI
-- **Testing**: Jasmine & Karma
 
 ## 📁 Project Structure
 
@@ -89,7 +88,8 @@ src/
 ## 🏃 Running the Application
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - npm or yarn
 
 ### Installation & Development
@@ -142,6 +142,7 @@ docker-compose up frontend
 ## 🎨 UI Features
 
 ### Components Used from PrimeNG
+
 - **p-table** - Data tables with pagination
 - **p-calendar** - Date range selection
 - **p-dropdown** - Filter selection
@@ -151,10 +152,6 @@ docker-compose up frontend
 - **p-message** - User notifications
 - **p-skeleton** - Loading states
 
-### Themes
-- **Lara Light Blue** - Clean, modern blue theme
-- Customizable via PrimeNG theming
-
 ## 📡 API Integration
 
 The frontend communicates with the backend API using environment-based configuration:
@@ -163,6 +160,7 @@ The frontend communicates with the backend API using environment-based configura
 - **Production**: Dynamic API URL based on deployment
 
 ### Service Layer
+
 - `TransactionService` handles all API calls
 - Request caching for performance
 - Error handling with user-friendly messages
@@ -173,6 +171,7 @@ The frontend communicates with the backend API using environment-based configura
 ### Environment Files
 
 **src/environments/environment.ts** (Development)
+
 ```typescript
 export const environment = {
   production: false,
@@ -181,6 +180,7 @@ export const environment = {
 ```
 
 **src/environments/environment.prod.ts** (Production)
+
 ```typescript
 export const environment = {
   production: true,
@@ -188,19 +188,10 @@ export const environment = {
 };
 ```
 
-## 🧪 Running Tests
-
-```bash
-# Run unit tests
-npm test
-
-# Run with coverage
-npm test -- --code-coverage
-```
-
 ## 📱 Responsive Design
 
 The application is fully responsive and works on:
+
 - Desktop (1920px+)
 - Laptop (1024px+)
 - Tablet (768px+)
@@ -209,17 +200,20 @@ The application is fully responsive and works on:
 ## 🎯 Key Features in Detail
 
 ### Transaction Management
+
 - Create new transactions with validation
 - View all transactions in a paginated table
 - Real-time filtering and sorting
 - Auto-refresh after creating new transactions
 
 ### Statistics Dashboard
+
 - Total credits and debits
 - Transaction counts
 - Real-time updates
 
 ### User Experience
+
 - Loading indicators
 - Error handling with clear messages
 - Success confirmations
@@ -228,6 +222,7 @@ The application is fully responsive and works on:
 ## 📦 Dependencies
 
 ### Main Dependencies
+
 - `@angular/core` - Angular framework
 - `@angular/router` - Routing
 - `@angular/forms` - Form handling
@@ -236,20 +231,21 @@ The application is fully responsive and works on:
 - `rxjs` - Reactive programming
 
 ### Dev Dependencies
+
 - `@angular/cli` - Development tools
 - `typescript` - TypeScript compiler
-- `jasmine` - Testing framework
-- `karma` - Test runner
 
 ## 🐛 Troubleshooting
 
 ### Port Already in Use
+
 ```bash
 # Use a different port
 ng serve --port 4201
 ```
 
 ### Installation Issues
+
 ```bash
 # Clear cache and reinstall
 rm -rf node_modules package-lock.json
@@ -257,12 +253,9 @@ npm install
 ```
 
 ### Build Issues
+
 ```bash
 # Clear Angular cache
 rm -rf .angular dist
 ng build
 ```
-
-## 📄 License
-
-This project is part of the DataGear Interview System.

@@ -17,7 +17,7 @@ export interface TransactionFilters {
 
 export interface TransactionSort {
   field: string;
-  direction: 'asc' | 'desc';
+  direction: 'ASC' | 'DESC';
 }
 
 export interface TransactionPage {

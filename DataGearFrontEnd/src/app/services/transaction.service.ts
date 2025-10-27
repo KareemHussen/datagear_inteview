@@ -49,7 +49,8 @@ export class TransactionService {
     }
 
     if (sort) {
-      params = params.set('sort', `${sort.field},${sort.direction}`);
+      params = params.set('sortBy', `${sort.field}`);
+      params = params.set('sortDirection', `${sort.direction}`);
     }
 
     const requestParams = { page, size, filters, sort };

@@ -12,48 +12,65 @@
   </div>
 
   <!-- Loading State -->
-  <div *ngIf="loading()" class="loading-container">
-    <div class="cards-grid">
-      <div *ngFor="let card of [1,2,3,4]" class="card-skeleton">
-        <p-skeleton height="200px"></p-skeleton>
+  @if (loading()) {
+    <div class="loading-container">
+      <div class="cards-grid">
+        @for (card of [1,2,3,4]; track card) {
+          <div class="card-skeleton">
+            <p-skeleton height="200px"></p-skeleton>
+          </div>
+        }
       </div>
     </div>
-  </div>
+  }
 
   <!-- Error State -->
-  <div *ngIf="error() && !loading()" class="error-container">
-    <p-message 
-      severity="error" 
-      [text]="error()!" 
-      [closable]="false">
-    </p-message>
-    <p-button 
-      label="Retry" 
-      icon="pi pi-refresh" 
-      severity="secondary"
-      (onClick)="refreshStatistics()"
-      class="retry-button">
-    </p-button>
-  </div>
+  @if (error() && !loading()) {
+    <div class="error-container">
+      <p-message 
+        severity="error" 
+        [text]="error()!" 
+        [closable]="false">
+      </p-message>
+      <p-button 
+        label="Retry" 
+        icon="pi pi-refresh" 
+        severity="secondary"
+        (onClick)="refreshStatistics()"
+        class="retry-button">
+      </p-button>
+    </div>
+  }
 
   <!-- Statistics Cards -->
-  <div *ngIf="!loading() && !error()" class="cards-grid">
-    <div *ngFor="let card of cards()" class="statistics-card" [ngClass]="'card-' + card.color">
-      <div class="card-header">
-        <div class="card-icon">
-          <i [class]="card.icon"></i>
+  @if (!loading() && !error()) {
+    <div class="cards-grid">
+      @for (card of cards(); track card.title) {
+        <div class="statistics-card" [ngClass]="'card-' + card.color">
+          <div class="card-header">
+            <div class="card-icon">
+              <i [class]="card.icon"></i>
+            </div>
+            <div class="card-title">{{ card.title }}</div>
+          </div>
+          
+          <div class="card-content">
+            <div class="card-value">{{ formatCurrency(card.value) }}</div>
+
+            @if (card.trend) {
+              <div class="card-trend" [ngClass]="'trend-' + card.trend.direction">
+                <i [class]="
+                  card.trend.direction === 'up' ? 'pi pi-arrow-up' :
+                  card.trend.direction === 'down' ? 'pi pi-arrow-down' : 'pi pi-minus'
+                "></i>
+                <span>{{ card.trend.value }} transactions</span>
+              </div>
+            }
+          </div>
         </div>
-        <div class="card-title">{{ card.title }}</div>
-      </div>
-      
-      <div class="card-content">
-        <div class="card-value">{{ formatCurrency(card.value) }}</div>
-        <div *ngIf="card.trend" class="card-trend" [ngClass]="'trend-' + card.trend.direction">
-          <i [class]="card.trend.direction === 'up' ? 'pi pi-arrow-up' : 
-                      card.trend.direction === 'down' ? 'pi pi-arrow-down' : 'pi pi-minus'"></i>
-          <span>{{ card.trend.value }} transactions</span>
-        </div>
-      </div>
+      } @empty {
+        <p>No statistics available.</p>
+      }
     </div>
-  </div>
+  }
 </div>

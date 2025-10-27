@@ -13,9 +13,7 @@ import { MessageModule } from 'primeng/message';
 import { FormsModule } from '@angular/forms';
 import { TransactionService } from '../../services/transaction.service';
 import { Transaction, TransactionFilters, TransactionPage, TransactionSort } from '../../models/transaction.model';
-import { ApiResponse, PaginatedResponse } from '../../models/api-response.model';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { ApiResponse } from '../../models/api-response.model';
 
 @Component({
   selector: 'app-transactions',
@@ -37,9 +35,9 @@ import { filter } from 'rxjs/operators';
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss'
 })
-export class TransactionsComponent implements OnInit, OnDestroy {
+export class TransactionsComponent implements OnInit {
   protected readonly transactions = signal<Transaction[]>([]);
-  protected readonly loading = signal(true);
+  protected readonly loading = signal(false);
   protected readonly error = signal<string | null>(null);
   protected readonly totalRecords = signal(0);
   protected readonly currentPage = signal(0);
@@ -52,11 +50,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   protected readonly dateRange = signal<Date[]>([]);
 
   // Sort properties
-  protected readonly sortField = signal<string>('date');
+  protected readonly sortField = signal<string>('createdAt');
   protected readonly sortOrder = signal<number>(-1);
-
-  // Debounce mechanism
-  private isLoading = false;
 
   // Dropdown options
   protected readonly typeOptions = [
@@ -79,14 +74,10 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnDestroy(): void {
-    this.isLoading = false;
-  }
-
 
   public performLoad(force: boolean = false): void {
     // Prevent duplicate requests
-    if (this.isLoading) {
+    if (this.loading()) {
       console.log('Request already in progress, skipping...');
       return;
     }
@@ -94,18 +85,9 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     const filters = this.buildFilters();
     const sort: TransactionSort = {
       field: this.sortField(),
-      direction: this.sortOrder() === 1 ? 'asc' : 'desc'
+      direction: this.sortOrder() === 1 ? 'ASC' : 'DESC'
     };
 
-    const requestParams = {
-      page: this.currentPage(),
-      size: this.pageSize(),
-      filters,
-      sort
-    };
-
-
-    this.isLoading = true;
     this.loading.set(true);
     this.error.set(null);
 
@@ -131,7 +113,6 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         console.log('Total records signal:', this.totalRecords());
         
         this.loading.set(false);
-        this.isLoading = false;
       },
       error: (err) => {
         // Handle validation errors from API response
@@ -142,7 +123,6 @@ export class TransactionsComponent implements OnInit, OnDestroy {
           this.error.set(err.error?.message || 'Failed to load transactions. Please try again.');
         }
         this.loading.set(false);
-        this.isLoading = false;
         console.error('Error loading transactions:', err);
       }
     });
@@ -167,20 +147,20 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     this.currentPage.set(event.page);
     this.first.set(event.first);
     this.pageSize.set(event.rows);
-    this.performLoad(); // Immediate load for page changes
+    this.performLoad();
   }
 
   onSort(event: any): void {
     this.sortField.set(event.field);
     this.sortOrder.set(event.order);
-    this.performLoad(); // Immediate load for sorting
+    this.performLoad();
   }
 
   onFilterChange(): void {
     console.log('onFilterChange called');
     this.currentPage.set(0);
     this.first.set(0);
-    this.performLoad(); // Debounced load for filter changes
+    this.performLoad();
   }
 
   clearFilters(): void {
@@ -190,15 +170,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     this.filters.set({});
     this.currentPage.set(0);
     this.first.set(0);
-    this.isLoading = false; // Reset loading state
-    this.performLoad(); // Immediate load when clearing filters
-  }
-
-  // Method to force reset loading state (for debugging)
-  resetLoadingState(): void {
-    this.isLoading = false;
     this.loading.set(false);
-    console.log('Loading state reset');
+    this.performLoad();
   }
 
   getTransactionTypeSeverity(type: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' | null {

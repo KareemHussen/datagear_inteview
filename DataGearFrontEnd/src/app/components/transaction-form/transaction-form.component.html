@@ -14,13 +14,15 @@
       <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="transaction-form">
         
         <!-- Error Message -->
-        <div *ngIf="error()" class="error-message">
-          <p-message 
-            severity="error" 
-            [text]="error()!" 
-            [closable]="false">
-          </p-message>
-        </div>
+        @if (error()) {
+          <div class="error-message">
+            <p-message 
+              severity="error" 
+              [text]="error()!" 
+              [closable]="false">
+            </p-message>
+          </div>
+        }
 
         <div class="form-row">
           <div class="form-group">
@@ -38,9 +40,12 @@
               placeholder="0.00"
               [class.invalid]="isFieldInvalid('amount')">
             </p-inputNumber>
-            <small *ngIf="isFieldInvalid('amount')" class="error-text">
-              {{ getFieldError('amount') }}
-            </small>
+
+            @if (isFieldInvalid('amount')) {
+              <small class="error-text">
+                {{ getFieldError('amount') }}
+              </small>
+            }
           </div>
 
           <div class="form-group">
@@ -52,9 +57,12 @@
               placeholder="Select transaction type"
               [class.invalid]="isFieldInvalid('type')">
             </p-select>
-            <small *ngIf="isFieldInvalid('type')" class="error-text">
-              {{ getFieldError('type') }}
-            </small>
+
+            @if (isFieldInvalid('type')) {
+              <small class="error-text">
+                {{ getFieldError('type') }}
+              </small>
+            }
           </div>
         </div>
 
@@ -67,9 +75,12 @@
             formControlName="note"
             placeholder="Enter transaction note"
             [class.invalid]="isFieldInvalid('note')">
-          <small *ngIf="isFieldInvalid('note')" class="error-text">
-            {{ getFieldError('note') }}
-          </small>
+
+          @if (isFieldInvalid('note')) {
+            <small class="error-text">
+              {{ getFieldError('note') }}
+            </small>
+          }
         </div>
 
         <div class="form-actions">

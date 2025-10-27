@@ -36,11 +36,12 @@ DataGear is a comprehensive transaction management system built with modern tech
 - **3 REST Endpoints** for complete transaction management
 - **Advanced Filtering & Sorting** by date, type, and amount
 - **Database Seeder** for generating test data
-- **Clean Architecture** (Controller, Service, Repository)
-- **MapStruct** for efficient DTO-to-Entity mapping
+- **Performance Optimization** via caching, indexing, and native SQL
 - **Spring Doc OpenAPI** with Swagger UI
 - **Liquibase** for database migrations
-- **Performance Optimization** via caching, indexing, and native SQL
+- **CORS Configuration** to allow secure access from Angular frontend and Swagger UI
+- **Clean Architecture** (Controller, Service, Repository)
+- **MapStruct** for efficient DTO-to-Entity mapping
 - **43+ Test Cases** with comprehensive coverage
 
 ### Frontend Highlights
@@ -120,10 +121,10 @@ docker-compose up frontend
 cd DataGearBackend
 
 # Run with Maven
-./mvnw spring-boot:run
+mvn spring-boot:run
 
 # Or build and run JAR
-./mvnw clean package
+mvn clean package
 java -jar target/DataGearBackend-0.0.1-SNAPSHOT.jar
 ```
 
@@ -252,6 +253,7 @@ DataGear/
 - ✅ Clean Architecture pattern
 - ✅ MapStruct for DTO mapping
 - ✅ Liquibase migrations
+- ✅ CORS Configuration
 - ✅ Spring Cache for performance
 - ✅ Database indexing
 - ✅ Native SQL optimization
@@ -294,6 +296,7 @@ Once running, access the application at:
 - MapStruct 1.6.3
 - Liquibase
 - Spring Doc OpenAPI
+- Faker for fake Data (Seeder)
 
 **Frontend**
 
@@ -309,5 +312,5 @@ Once running, access the application at:
 
 ```bash
 cd DataGearBackend
-./mvnw test
+./mvn test
 ```
