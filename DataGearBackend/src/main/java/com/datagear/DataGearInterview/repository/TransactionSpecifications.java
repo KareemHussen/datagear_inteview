@@ -3,8 +3,6 @@ package com.datagear.DataGearInterview.repository;
 import com.datagear.DataGearInterview.dto.request.TransactionSearchRequest;
 import com.datagear.DataGearInterview.entity.Transaction;
 import com.datagear.DataGearInterview.enums.TransactionType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,8 +11,6 @@ import java.time.LocalDateTime;
  */
 public class TransactionSpecifications {
 
-
-    private static final Logger log = LoggerFactory.getLogger(TransactionSpecifications.class);
 
     private TransactionSpecifications() {
     }
